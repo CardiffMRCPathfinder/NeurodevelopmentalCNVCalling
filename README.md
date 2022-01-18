@@ -1,20 +1,20 @@
 # NeurodevelopmentalCNVCalling
 
-This pipeline was designed to perform CNV calling and quality control using PennCNV, identify known neurodevelopmental CNVs and output the results in a standardised and easily interpretable format.
+This pipeline was designed to perform CNV calling and quality control using PennCNV, identify known neurodevelopmental CNVs and output the results in a standardised and easily interpretable format. The pipeline requires you to have working versions of penn cnv and perl. A single output file .txt from Genome Studio is required to run the pipeline. Please see Penn CNV documentation for how to export data in the appropriate format. 
 
 ***Step 1: Download required R libraries:
 
 library("ggplot2")  
 library("gridExtra")  
-library("tidyverse") # Package version: 1.2.1 
-library("ggthemes").  # Package version: 4.0.1. 
-library("scales") # Package version 1.0.0.  
-library("RColorBrewer") # Package version 1.1-2.   
-library("data.table") # Package version 1.12.0
-library("rvest") # Package version 0.3.2
-library("data.table")
-library("bioconductor")
-library("limma")
+library("tidyverse") # Package version: 1.2.1  
+library("ggthemes").  # Package version: 4.0.1.  
+library("scales") # Package version 1.0.0.   
+library("RColorBrewer") # Package version 1.1-2.    
+library("data.table") # Package version 1.12.0  
+library("rvest") # Package version 0.3.2  
+library("data.table")  
+library("bioconductor")  
+library("limma")  
 
 PennCNV and instalation instructions can be found here: https://github.com/WGLab/PennCNV
 Please use this resource for generating your own .pfb files
@@ -24,14 +24,14 @@ Please use this resource for generating your own .pfb files
 Please change the required parameters to mirror that of your own paths for Penn CNV and perl. 
 
 miscfolder="~/Pathfinder/CNVCallingPipeExtra/" 
-DATASET="Dataset" 
-PENNCNV="~/Pathfinder/CNVCallingPipeExtra/PennCNV-1.0.5/" 
-PERL="~/Pathfinder/CNVCallingPipeExtra/perl-5.14.2/perl" 
-outpath="/scratch/username" 
-outpath=paste(outpath,"/",DATASET,"/",sep="")  
-if(dir.exists("NeuroDevelopmentalPlots")==F){  
-dir.create("NeuroDevelopmentalPlots")  
-}  
+DATASET="Dataset"  
+PENNCNV="~/Pathfinder/CNVCallingPipeExtra/PennCNV-1.0.5/"  
+PERL="~/Pathfinder/CNVCallingPipeExtra/perl-5.14.2/perl"  
+outpath="/scratch/username"  
+outpath=paste(outpath,"/",DATASET,"/",sep="")   
+if(dir.exists("NeuroDevelopmentalPlots")==F){   
+dir.create("NeuroDevelopmentalPlots")   
+}   
 
 
 
@@ -40,11 +40,11 @@ dir.create("NeuroDevelopmentalPlots")
 
 The script is written in R Markdown (Rmd). You wil require a working copy of Pandoc (version 2.5 or later). 
 
-These core lines will work on a server based environment. Please ensure that your genome studio output file for CNV calling is within a directory of the same name: e.g Sample1/Sample1.txt, and change this within the sh file provided. 
+These core lines will work on a server based environment. Please ensure that your genome studio output file for CNV calling is within a directory of the same name: e.g Sample1/Sample1.txt, and change this within the sh file provided. The sh and Rmd files must be located within your Sample1/ directory. If you need to rerun the script, for example changing QC parameters, you must delete all files within this directory apart from your initial genome studio text file, Rmd and sh files.  
 
-module load R
-export R_LIBS_USER=/home/YOURUSERNAME/R/x86_64-pc-linux-gnu-library/3.5
-export RSTUDIO_PANDOC="/home/YOURUSERNAME/Software/pandoc-2.5/bin"
-sed s/"NAMEOFDATASET"/NAMEOFDATASET/g HAWK.Psychmed.CNVQC.V4.3.Rmd > HAWK.Psychmed.CNVQC.V4.3.NAMEOFDATASET_CNV.Rmd
-Rscript -e "rmarkdown::render(\"HAWK.Psychmed.CNVQC.Beta.V4.3.NAMEOFDATASET_CNV.Rmd\", params = list(DATASET = \"NAMEOFDATASET\"))"
+module load R  
+export R_LIBS_USER=/home/YOURUSERNAME/R/x86_64-pc-linux-gnu-library/3.5  
+export RSTUDIO_PANDOC="/home/YOURUSERNAME/Software/pandoc-2.5/bin"  
+sed s/"NAMEOFDATASET"/NAMEOFDATASET/g HAWK.Psychmed.CNVQC.V4.3.Rmd > HAWK.Psychmed.CNVQC.V4.3.NAMEOFDATASET_CNV.Rmd  
+Rscript -e "rmarkdown::render(\"HAWK.Psychmed.CNVQC.Beta.V4.3.NAMEOFDATASET_CNV.Rmd\", params = list(DATASET = \"NAMEOFDATASET\"))"  
 
