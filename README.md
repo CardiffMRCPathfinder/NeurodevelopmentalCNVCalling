@@ -23,11 +23,11 @@ Please use this resource for generating your own .pfb files
 
 Please change the required parameters to mirror that of your own paths for Penn CNV and perl. 
 
-miscfolder="~/Pathfinder/CNVCallingPipeExtra/"  
-DATASET="Dataset"  
-PENNCNV="~/Pathfinder/CNVCallingPipeExtra/PennCNV-1.0.5/"  
-PERL="~/Pathfinder/CNVCallingPipeExtra/perl-5.14.2/perl"  
-outpath="/scratch/username"  
+miscfolder="~/Pathfinder/CNVCallingPipeExtra/" 
+DATASET="Dataset" 
+PENNCNV="~/Pathfinder/CNVCallingPipeExtra/PennCNV-1.0.5/" 
+PERL="~/Pathfinder/CNVCallingPipeExtra/perl-5.14.2/perl" 
+outpath="/scratch/username" 
 outpath=paste(outpath,"/",DATASET,"/",sep="")  
 if(dir.exists("NeuroDevelopmentalPlots")==F){  
 dir.create("NeuroDevelopmentalPlots")  
