@@ -31,8 +31,9 @@ library("limma")
 PennCNV and instalation instructions can be found here: https://github.com/WGLab/PennCNV  
 Please use this resource for generating your own .pfb files  
   
-# Step 2: Modify the Rmd script for your own parameters (lines 48-56, and 58-60).  
+# Step 2: Modify the Rmd script for your own parameters 
 
+Rmd lines 48-60
 Please change the required parameters to mirror that of your own paths for Penn CNV and perl. 
 
 miscfolder="~/Pathfinder/CNVCallingPipeExtra/" 
@@ -45,9 +46,9 @@ if(dir.exists("NeuroDevelopmentalPlots")==F){
 dir.create("NeuroDevelopmentalPlots")   
 }   
 
-LRR_SD.thres=0.2
-NCNV.thres=100
-WF.thres=0.03
+LRR_SD.thres=0.2  
+NCNV.thres=100  
+WF.thres=0.03  
 
 
 # Run the pipeline.  
