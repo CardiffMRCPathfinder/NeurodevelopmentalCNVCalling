@@ -2,7 +2,19 @@
 
 This pipeline was designed to perform CNV calling and quality control using PennCNV, identify known neurodevelopmental CNVs and output the results in a standardised and easily interpretable format. The pipeline requires you to have working versions of penn cnv and perl. A single output file .txt from Genome Studio is required to run the pipeline. Please see Penn CNV documentation for how to export data in the appropriate format. 
 
-***Step 1: Download required R libraries:
+# Pipeline Operations  
+ 
+1) Penn CNV splits up a single txt file from genome studio into individual sub-files and creates a list of ids.
+2) CNV calling is performed using the array specific pfb file and gc model file. You will likely need to create this yourself.  
+3) CNVs called close together are merged if the the distance between CNVs is less than 50% of their combined length. 
+4) QC files and a filtered cnv list is then produced. 
+5) QC metrics plots are produced 
+6) After removing individuals and CNVs that fail specified QC parameters (LRR standard deviation, wave factor, N CNVs), remaining high quality CNV calls are compared against a list of known neurodevelopmental CNVs (see [Kendall el al, 2019](https://jamanetwork.com/journals/jamapsychiatry/fullarticle/2730725)).
+7) Each neurodevelopmental CNV has specific criteria that must be met. This may be overlapping a certain % of the critical region, hitting specific genes / exons or must be a certain size. For CNVs within each ND CNV locus, these criteria are automatically tested. 
+8) All CNVs that are found at a ND CNV locus are reported and saved to file, and are flagged for whether they pass or fail on the locus specific criteria.
+9) A final html report is generated, with information about the sample, QC plots, ND CNVs called in the sample, and trace plots (B-allele freq, LRR). Trace plots are generated for each ND CNV that passes QC and satisfies the locus specific criteria and must be manually inspected.    
+
+# Required R libraries:
 
 library("ggplot2")  
 library("gridExtra")  
@@ -16,10 +28,10 @@ library("data.table")
 library("bioconductor")  
 library("limma")  
 
-PennCNV and instalation instructions can be found here: https://github.com/WGLab/PennCNV
-Please use this resource for generating your own .pfb files
+PennCNV and instalation instructions can be found here: https://github.com/WGLab/PennCNV  
+Please use this resource for generating your own .pfb files  
   
-***Step 2: Modify the Rmd script for your own parameters (lines 48-56).  
+# Step 2: Modify the Rmd script for your own parameters (lines 48-56, and 58-60).  
 
 Please change the required parameters to mirror that of your own paths for Penn CNV and perl. 
 
@@ -33,10 +45,12 @@ if(dir.exists("NeuroDevelopmentalPlots")==F){
 dir.create("NeuroDevelopmentalPlots")   
 }   
 
+LRR_SD.thres=0.2
+NCNV.thres=100
+WF.thres=0.03
 
 
-
-***Step 3: Run the pipeline.  
+# Run the pipeline.  
 
 The script is written in R Markdown (Rmd). You wil require a working copy of Pandoc (version 2.5 or later). 
 
