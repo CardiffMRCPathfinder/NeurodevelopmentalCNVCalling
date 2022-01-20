@@ -31,11 +31,9 @@ library("limma")
 PennCNV and instalation instructions can be found here: https://github.com/WGLab/PennCNV  
 Please use this resource for generating your own .pfb files  
   
-# Step 2: Modify the Rmd script for your own parameters 
-
-Rmd lines 48-60
+# Step 2: Modify HAWK.Psychmed.CNVQC.V4.3.Rmd for your own parameters 
+Lines 48-60:  
 Please change the required parameters to mirror that of your own paths for Penn CNV and perl. 
-
 miscfolder="~/Pathfinder/CNVCallingPipeExtra/"   
 DATASET="Dataset"    
 PENNCNV="~/Pathfinder/CNVCallingPipeExtra/PennCNV-1.0.5/"  
@@ -61,5 +59,5 @@ module load R
 export R_LIBS_USER=/home/YOURUSERNAME/R/x86_64-pc-linux-gnu-library/3.5  
 export RSTUDIO_PANDOC="/home/YOURUSERNAME/Software/pandoc-2.5/bin"  
 sed s/"NAMEOFDATASET"/NAMEOFDATASET/g HAWK.Psychmed.CNVQC.V4.3.Rmd > HAWK.Psychmed.CNVQC.V4.3.NAMEOFDATASET_CNV.Rmd  
-Rscript -e "rmarkdown::render(\"HAWK.Psychmed.CNVQC.Beta.V4.3.NAMEOFDATASET_CNV.Rmd\", params = list(DATASET = \"NAMEOFDATASET\"))"  
+Rscript -e "rmarkdown::render(\"HAWK.Psychmed.CNVQC.V4.3.NAMEOFDATASET_CNV.Rmd\", params = list(DATASET = \"NAMEOFDATASET\"))"  
 
